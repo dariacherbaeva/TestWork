@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -264,11 +265,20 @@ public class TestClass {
             } else {
                 List<Person> owners = new ArrayList<>();
                 owners.add(new Person("Name", "Lastname", 35));
-
+                InsurancePolicy<Person> a = new InsurancePolicy<>(owners, "Empty");
             }
         });
+        Map<Person, List<Car<Person>>> b = carStream.collect(Collectors.toMap(Car::getOwner , x -> {
+                    List toReturn = new ArrayList<String>();
+                    toReturn.add(Function.identity());
+                    return toReturn;
+                },
+                (x, y) -> {
+                    x.addAll(y);
+                    return x;
+                }));
+        System.out.println(b.toString());
 
-        List<Car> carList = carStream.collect(Collectors.toList());
 
     }
 
