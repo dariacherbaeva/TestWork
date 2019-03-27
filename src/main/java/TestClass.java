@@ -268,7 +268,7 @@ public class TestClass {
                 InsurancePolicy<Person> a = new InsurancePolicy<>(owners, "Empty");
             }
         });
-        Map<Person, List<Car<Person>>> b = carStream.collect(Collectors.toMap(Car::getOwner , x -> {
+        Map b = carStream.collect(Collectors.toMap(Car::getOwner , x -> {
                     List toReturn = new ArrayList<String>();
                     toReturn.add(Function.identity());
                     return toReturn;
