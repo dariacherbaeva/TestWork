@@ -225,7 +225,68 @@ public class TestClass {
         });
 
         List<Car> carList = carStream.collect(Collectors.toList());
+    }
 
+    public static void testPoint4() {
+        Person person1 = new Person("Ivan", "Ivanov", 34);
+        Person person2 = new Person("Maria", "Ivanova", 40);
+        Person person3 = new Person("Petr", "Petrov", 40);
+        Person person4 = new Person("Olga", "Petrova", 35);
+        Person person5 = new Person("Robert", "Sidorov", 45);
+        Person person6 = new Person("Marina", "Sidorova", 39);
+        Person person7 = new Person("Marina", "Sidorova", 39);
+        Person person8 = new Person("Mark", "Sidoroov", 56);
+        Person person9 = new Person("John", "Smith", 57);
+        Person person10 = new Person("Kate", "Smith", 49);
 
+        ArrayList<Person> people = new ArrayList<>();
+        people.add(person1);
+        people.add(person2);
+        people.add(person3);
+        people.add(person4);
+        people.add(person5);
+        people.add(person6);
+        people.add(person7);
+        people.add(person8);
+        people.add(person9);
+        people.add(person10);
+
+        Stream<Person> personStream = people.stream();
+        Stream<Car> carStream = personStream.map((o) -> new Car<Person>(o));
+        boolean k = Math.random() <0.5;
+        carStream.peek((o)-> {
+            String [] policies = {"1", "2", "3", "4", "5", "6", "7","8", "9", "10"};
+            if (k) {
+                List<Person> owners = new ArrayList<>();
+                owners.add((Person) o.getOwner());
+                InsurancePolicy<Person> a = new InsurancePolicy<>(owners, policies[(int)(Math.random()*10)]);
+                o.setInsurancePolicy(a);
+            } else {
+                List<Person> owners = new ArrayList<>();
+                owners.add(new Person("Name", "Lastname", 35));
+
+            }
+        });
+
+        List<Car> carList = carStream.collect(Collectors.toList());
+
+    }
+
+    public static void testPoint5(int m) {
+        List<Integer> list = new ArrayList<Integer>();
+
+        Stream.iterate(new int[] {1, 1}, n -> new int[] {n[1], n[0] + n[1]})
+                .limit(m)
+                .map(n -> n[0])
+                .forEach(x -> list.add(x));
+
+        IntSummaryStatistics stats = list.stream()
+                .collect(Collectors.summarizingInt(n -> n));
+
+        for (int i: list) {
+            System.out.println(i);
+        }
+        System.out.println("");
+        System.out.println(stats);
     }
 }
