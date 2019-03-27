@@ -1,15 +1,15 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TestClass {
 
     public static void main (String [] args) {
-
+        testPoint1();
+        testPoint2();
     }
 
-    public void testPoint1() {
+    public static void testPoint1() {
         Person person1 = new Person("Ivan", "Ivanov", 34);
         Person person2 = new Person("Maria", "Ivanova", 40);
         Person person3 = new Person("Petr", "Petrov", 40);
@@ -115,7 +115,7 @@ public class TestClass {
         System.out.println("Time: " + (t15-t16));
     }
 
-    public void testPoint2() {
+    public static void testPoint2() {
         Person person1 = new Person("Ivan", "Ivanov", 34);
         Person person2 = new Person("Maria", "Ivanova", 40);
         Person person3 = new Person("Petr", "Petrov", 40);
@@ -188,5 +188,44 @@ public class TestClass {
         for (InsurancePolicy<Person> policy:policies) {
             System.out.println(policy.toString());
         }
+    }
+
+    public static void testPoint3() {
+        Person person1 = new Person("Ivan", "Ivanov", 34);
+        Person person2 = new Person("Maria", "Ivanova", 40);
+        Person person3 = new Person("Petr", "Petrov", 40);
+        Person person4 = new Person("Olga", "Petrova", 35);
+        Person person5 = new Person("Robert", "Sidorov", 45);
+        Person person6 = new Person("Marina", "Sidorova", 39);
+        Person person7 = new Person("Marina", "Sidorova", 39);
+        Person person8 = new Person("Mark", "Sidoroov", 56);
+        Person person9 = new Person("John", "Smith", 57);
+        Person person10 = new Person("Kate", "Smith", 49);
+
+        ArrayList<Person> people = new ArrayList<>();
+        people.add(person1);
+        people.add(person2);
+        people.add(person3);
+        people.add(person4);
+        people.add(person5);
+        people.add(person6);
+        people.add(person7);
+        people.add(person8);
+        people.add(person9);
+        people.add(person10);
+
+        Stream<Person> personStream = people.stream();
+        Stream<Car> carStream = personStream.map((o) -> new Car<Person>(o));
+        carStream.peek((o)-> {
+            String [] policies = {"1", "2", "3", "4", "5", "6", "7","8", "9", "10"};
+            List<Person> owners = new ArrayList<>();
+            owners.add((Person) o.getOwner());
+            InsurancePolicy<Person> a = new InsurancePolicy<>(owners, policies[(int)(Math.random()*10)]);
+            o.setInsurancePolicy(a);
+        });
+
+        List<Car> carList = carStream.collect(Collectors.toList());
+
+
     }
 }
