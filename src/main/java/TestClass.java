@@ -114,4 +114,79 @@ public class TestClass {
         double t16 = System.nanoTime();
         System.out.println("Time: " + (t15-t16));
     }
+
+    public void testPoint2() {
+        Person person1 = new Person("Ivan", "Ivanov", 34);
+        Person person2 = new Person("Maria", "Ivanova", 40);
+        Person person3 = new Person("Petr", "Petrov", 40);
+        Person person4 = new Person("Olga", "Petrova", 35);
+        Person person5 = new Person("Robert", "Sidorov", 45);
+        Person person6 = new Person("Marina", "Sidorova", 39);
+        Person person7 = new Person("Marina", "Sidorova", 39);
+        Person person8 = new Person("Mark", "Sidoroov", 56);
+        Person person9 = new Person("John", "Smith", 57);
+        Person person10 = new Person("Kate", "Smith", 49);
+
+        ArrayList<Person> list1 = new ArrayList<Person>();
+        list1.add(person1);
+        list1.add(person2);
+        InsurancePolicy<Person> policy1 = new InsurancePolicy<Person>(list1,"1");
+
+        ArrayList<Person> list2 = new ArrayList<Person>();
+        list2.add(person3);
+        InsurancePolicy<Person> policy2 = new InsurancePolicy<Person>(list2,"1");
+
+        InsurancePolicy<Person> policy3 = new InsurancePolicy<Person>(null, "3");
+
+        ArrayList<Person> list4 = new ArrayList<Person>();
+        list4.add(person5);
+        list4.add(person2);
+        InsurancePolicy<Person> policy4 = new InsurancePolicy<Person>(list4,"4");
+
+        ArrayList<Person> list5 = new ArrayList<Person>();
+        list5.add(person6);
+        list5.add(person7);
+        list5.add(person8);
+        InsurancePolicy<Person> policy5 = new InsurancePolicy<Person>(list5,"5");
+
+        InsurancePolicy<Person> policy6 = new InsurancePolicy<Person>(null,"6");
+
+        ArrayList<Person> list7 = new ArrayList<Person>();
+        list7.add(person9);
+        InsurancePolicy<Person> policy7 = new InsurancePolicy<Person>(list7,"7");
+
+        ArrayList<Person> list8 = new ArrayList<Person>();
+        list8.add(person1);
+        list8.add(person2);
+        list8.add(person3);
+        list8.add(person4);
+        list8.add(person5);
+        list8.add(person6);
+        InsurancePolicy<Person> policy8 = new InsurancePolicy<Person>(list8,"8");
+
+        ArrayList<Person> list9 = new ArrayList<Person>();
+        list9.add(person10);
+        InsurancePolicy<Person> policy9 = new InsurancePolicy<Person>(list9,"9");
+
+        ArrayList<Person> list10 = new ArrayList<Person>();
+        list10.add(person10);
+        list10.add(person9);
+        InsurancePolicy<Person> policy10 = new InsurancePolicy<Person>(list10,"10");
+
+        ArrayList<InsurancePolicy<Person>> policies = new ArrayList<InsurancePolicy<Person>>();
+        policies.add(policy1);
+        policies.add(policy2);
+        policies.add(policy3);
+        policies.add(policy4);
+        policies.add(policy5);
+        policies.add(policy6);
+        policies.add(policy7);
+        policies.add(policy8);
+        policies.add(policy9);
+        policies.add(policy10);
+
+        for (InsurancePolicy<Person> policy:policies) {
+            System.out.println(policy.toString());
+        }
+    }
 }
